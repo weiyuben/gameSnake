@@ -90,11 +90,140 @@ public class Snake {
             }
         }
     }
-    public Food getHead() {
-        return null;
+
+    public void eatFood() {
+        body.addLast(tail.getLocation());
+        for (SnakeLister l : snakeListers) {
+            l.snakeEatFood();
+        }
+    }
+
+    public void changeDirection(int newDirection) {
+        this.newDirection = newDirection;
+    }
+    public Point getHead() {
+        return body.getFirst();
     }
 
     public Point takeTail() {
         return body.removeLast();
+    }
+    public int getLength() {
+        return body.size();
+    }
+    public void begin() {
+        new Thread(new SnakeDriver()).start();
+    }
+
+    public void reNew() {
+        init();
+        begin();
+    }
+
+    public void init() {
+        body.clear();
+        int x = Global.WIDTH/2 - Global.INIT_LENGTH / 2;
+        int y = Global.HEIGHT/2;
+        for (int i = 0; i < Global.INIT_LENGTH; i++) {
+            this.body.addFirst(new Point(x++,y));
+        }
+
+        oldDirection = newDirection = RIGHT;
+        speed = Global.SPEED;
+        live = true;
+        pause = false;
+
+    }
+
+    public boolean isEatBody() {
+        for (int i = 0; i < body.size(); i++) {
+            if (body.getFirst().equals(body.get(i)))
+                return true;
+        }
+        return false;
+    }
+
+    public void drawMe(Graphics g) {
+        for (Point p : body) {
+            g.setColor(bodyColor);
+            drawBody(g, p.x * Global.CELL_WIDTH, p.y * Global.CELL_HEIGHT,Global.CELL_WIDTH,Global.CELL_HEIGHT);
+        }
+        g.setColor(headColor);
+        drawHead(g, getHead().x*Global.CELL_WIDTH, getHead().y*Global.CELL_HEIGHT,Global.CELL_WIDTH,Global.CELL_HEIGHT);
+    }
+
+    public void drawHead(Graphics g, int x, int y, int width, int height) {
+        g.fill3DRect(x,y,width,height,true);
+    }
+
+    public void drawBody(Graphics g, int x, int y, int width, int height) {
+        g.fill3DRect(x, y, width, height, true);
+    }
+
+    public Color getHeadColor() {
+        return headColor;
+    }
+
+    public void setHeadColor(Color headColor) {
+        this.headColor = headColor;
+    }
+
+    public Color getBodyColor() {
+        return bodyColor;
+    }
+
+    public void setBodyColor(Color bodyColor) {
+        this.bodyColor = bodyColor;
+    }
+
+    public synchronized void addSnakeListener(SnakeLister snakeLister) {
+        if (snakeLister == null) return;
+        snakeListers.add(snakeLister);
+    }
+
+    public synchronized void removeSnakeListener(SnakeLister snakeLister) {
+        if (snakeLister == null) return;
+        snakeListers.remove(snakeLister);
+    }
+
+    public void speedUp() {
+        if (speed > Global.SPEED_STEP) {
+            speed -= Global.SPEED_STEP;
+        }
+    }
+    public void speedDown() {
+        speed += Global.SPEED_STEP;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public boolean isLive() {
+        return live;
+    }
+
+    public void setLive(boolean live) {
+        this.live = live;
+    }
+
+    public void dead() {
+        this.live = false;
+    }
+
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
+    }
+
+    public void changePause() {
+        pause = !pause;
     }
 }
