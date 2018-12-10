@@ -93,11 +93,11 @@ public class Ground extends Point {
         }
     }
 
-    public void drawRock(Graphics g,int x,int y,int width, int height) {
+    private void drawRock(Graphics g,int x,int y,int width, int height) {
         g.fill3DRect(x,y,width,height,true);
     }
 
-    public void drawGridding(Graphics g, int x, int y, int width, int height) {
+    private void drawGridding(Graphics g, int x, int y, int width, int height) {
         g.drawRect(x,y,width,height);
     }
     public Color getGriddingColor() {

@@ -152,11 +152,11 @@ public class Snake {
         drawHead(g, getHead().x*Global.CELL_WIDTH, getHead().y*Global.CELL_HEIGHT,Global.CELL_WIDTH,Global.CELL_HEIGHT);
     }
 
-    public void drawHead(Graphics g, int x, int y, int width, int height) {
+    private void drawHead(Graphics g, int x, int y, int width, int height) {
         g.fill3DRect(x,y,width,height,true);
     }
 
-    public void drawBody(Graphics g, int x, int y, int width, int height) {
+    private void drawBody(Graphics g, int x, int y, int width, int height) {
         g.fill3DRect(x, y, width, height, true);
     }
 
