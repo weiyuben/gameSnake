@@ -1,6 +1,6 @@
 package com.ben.snake.entities;
 
-import com.ben.snake.listener.SnakeLister;
+import com.ben.snake.listener.SnakeListener;
 import com.ben.snake.util.Global;
 
 import java.awt.*;
@@ -9,10 +9,10 @@ import java.util.LinkedList;
 import java.util.Set;
 
 public class Snake {
-    private static final int UP = 1;
-    private static final int DOWN = -1;
-    private static final int LEFT = 2;
-    private static final int RIGHT = -2;
+    public static final int UP = 1;
+    public static final int DOWN = -1;
+    public static final int LEFT = 2;
+    public static final int RIGHT = -2;
 
     private LinkedList<Point> body = new LinkedList<Point>();
     private int oldDirection;
@@ -24,7 +24,7 @@ public class Snake {
     private boolean live;
     private boolean pause;
 
-    private Set<SnakeLister> snakeListers = new HashSet<>();
+    private Set<SnakeListener> snakeListeners = new HashSet<>();
 
     public static final Color DEFAULT_HEAD_COLOR = new Color(0xcc0033);
     /* 蛇头的颜色 */
@@ -78,7 +78,7 @@ public class Snake {
             while (live) {
                 if (!pause) {
                     move();
-                    for (SnakeLister i : snakeListers) {
+                    for (SnakeListener i : snakeListeners) {
                         i.snakeMove();
                     }
                 }
@@ -93,7 +93,7 @@ public class Snake {
 
     public void eatFood() {
         body.addLast(tail.getLocation());
-        for (SnakeLister l : snakeListers) {
+        for (SnakeListener l : snakeListeners) {
             l.snakeEatFood();
         }
     }
@@ -176,14 +176,14 @@ public class Snake {
         this.bodyColor = bodyColor;
     }
 
-    public synchronized void addSnakeListener(SnakeLister snakeLister) {
-        if (snakeLister == null) return;
-        snakeListers.add(snakeLister);
+    public synchronized void addSnakeListener(SnakeListener snakeListener) {
+        if (snakeListener == null) return;
+        snakeListeners.add(snakeListener);
     }
 
-    public synchronized void removeSnakeListener(SnakeLister snakeLister) {
-        if (snakeLister == null) return;
-        snakeListers.remove(snakeLister);
+    public synchronized void removeSnakeListener(SnakeListener snakeListener) {
+        if (snakeListener == null) return;
+        snakeListeners.remove(snakeListener);
     }
 
     public void speedUp() {

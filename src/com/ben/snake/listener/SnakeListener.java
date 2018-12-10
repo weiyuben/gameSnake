@@ -1,6 +1,6 @@
 package com.ben.snake.listener;
 
-public interface SnakeLister {
+public interface SnakeListener {
     void snakeMove();
     void snakeEatFood();
 }

@@ -17,17 +17,26 @@ public class Global {
     public static final int INIT_LENGTH;
     public static final int SPEED;
     public static final int SPEED_STEP;
-//    public static final String TITLE_LABEL_TEXT;
-//    public static final String INFO_LABEL_TEXT;
+    public static final String TITLE_LABEL_TEXT;
+    public static final String INFO_LABEL_TEXT;
 
     private Global() {
     }
 
     static {
-        try (InputStream inputStream = new FileInputStream(CONFIG_FILE)){
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(CONFIG_FILE);
             properties.load(inputStream);
         } catch (IOException e) {
             System.out.println("没有找到配置文件");
+        }finally {
+            try {
+                if (inputStream != null)
+                    inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         Integer temp = null;
@@ -51,11 +60,11 @@ public class Global {
         CANVAS_WIDTH = WIDTH * CELL_WIDTH;
         CANVAS_HEIGHT = HEIGHT * CELL_HEIGHT;
 
-//        String tempStr = null;
-//        TITLE_LABEL_TEXT = (tempStr = getValue("title")) == null ? "说明："
-//                : tempStr;
-//        INFO_LABEL_TEXT = (tempStr = getValue("info")) == null ? "方向键控制方向, 回车键暂停/继续\nPAGE UP, PAGE DOWN 加速或减速\n\n更多请看 www.itcast.cn "
-//                : tempStr;
+        String tempStr = null;
+        TITLE_LABEL_TEXT = (tempStr = getValue("title")) == null ? "说明："
+                : tempStr;
+        INFO_LABEL_TEXT = (tempStr = getValue("info")) == null ? "方向键控制方向, 回车键暂停/继续\nPAGE UP, PAGE DOWN 加速或减速\n\n更多请看 www.itcast.cn "
+                : tempStr;
 
     }
 
@@ -72,7 +81,8 @@ public class Global {
 
     private static String getValue(String key) {
         try {
-            return new String(properties.getProperty(key).getBytes("iso8859-1"));
+            String s =  new String(properties.getProperty(key).getBytes("iso8859-1"));
+            return s;
         } catch (UnsupportedEncodingException e) {
             return null;
         }
