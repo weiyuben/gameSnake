@@ -38,8 +38,9 @@ public class GamePanel extends JPanel {
             snake.drawMe(gg);
             if (food != null)
                 food.drawMe(gg);
+            this.paint(this.getGraphics());
         }
-        this.paint(this.getGraphics());
+
     }
 
     @Override

@@ -63,7 +63,7 @@ public class Global {
         String tempStr = null;
         TITLE_LABEL_TEXT = (tempStr = getValue("title")) == null ? "说明："
                 : tempStr;
-        INFO_LABEL_TEXT = (tempStr = getValue("info")) == null ? "方向键控制方向, 回车键暂停/继续\nPAGE UP, PAGE DOWN 加速或减速\n\n更多请看 www.itcast.cn "
+        INFO_LABEL_TEXT = (tempStr = getValue("info")) == null ? "方向键控制方向, 回车键暂停/继续\nPAGE UP, PAGE DOWN 加速或减速\n\n"
                 : tempStr;
 
     }
@@ -81,9 +81,8 @@ public class Global {
 
     private static String getValue(String key) {
         try {
-            String s =  new String(properties.getProperty(key).getBytes("iso8859-1"));
-            return s;
-        } catch (UnsupportedEncodingException e) {
+            return new String(properties.getProperty(key).getBytes("iso8859-1"));
+        } catch (Exception e) {
             return null;
         }
     }

@@ -238,10 +238,11 @@ public class SnakeController extends KeyAdapter implements SnakeListener {
 
 
     public SnakeController(Ground ground, Snake snake, Food food, GamePanel gamePanel) {
-        this.ground = ground;
         this.snake = snake;
         this.food = food;
         this.gamePanel = gamePanel;
+        this.ground = ground;
+
         if (ground != null && food != null) {
             food.setLocation(ground.getFreePoint());
         }

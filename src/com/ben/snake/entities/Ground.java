@@ -16,6 +16,7 @@ public class Ground extends Point {
     public static final Color DEFAULT_GRIDDING_COLOR = Color.LIGHT_GRAY;
 
     private Color griddingColor = DEFAULT_GRIDDING_COLOR;
+
     private Random random = new Random();
     private boolean drawGridding = false;
 

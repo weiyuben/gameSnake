@@ -136,7 +136,7 @@ public class Snake {
     }
 
     public boolean isEatBody() {
-        for (int i = 0; i < body.size(); i++) {
+        for (int i = 1; i < body.size(); i++) {
             if (body.getFirst().equals(body.get(i)))
                 return true;
         }
