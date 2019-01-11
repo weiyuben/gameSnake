@@ -37,7 +37,7 @@ public class Food extends Point{
     }
 
     public void drawFood(Graphics graphics, int x, int y, int width, int height) {
-        graphics.draw3DRect(x,y,width,height,true);
+        graphics.fill3DRect(x,y,width,height,true);
     }
     public Color getColor() {
         return color;
